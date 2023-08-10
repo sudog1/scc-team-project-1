@@ -29,6 +29,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
+        body {
+            background-color: #12120d;
+        }
         .frame {
             right: 0;
             margin-right: 10px;
@@ -47,6 +50,14 @@
         .content {
             font-family: 'Nanum Gothic', sans-serif;
             margin-left: 5%;
+        }
+
+        .content > h1 {
+            color: rgb(220, 220, 220);
+        }
+
+        .content > h2 {
+            color: rgb(205, 205, 205);
         }
 
         .card-deck {
@@ -72,14 +83,13 @@
         .card-text {
             font-family: 'Nanum Gothic', sans-serif;
             font-size: 35px;
-            color: #e8344e;
+            color: #c3c2c0;
         }
     </style>
     <script>
         $(() => {
             getMemberList();
         });
-        
         const getMemberList = () => {
             fetch('/members').then((res) => res.json()).then((data) => {
                 members = data.members;
