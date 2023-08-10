@@ -30,60 +30,145 @@
 
     <style>
         body {
-            background-color: #12120d;
+            background-color: #191919;
         }
+
+        .main {
+            display: flex;
+            flex-direction: row;
+            margin-top: 10%;
+        }
+
         .frame {
+            display: flex;
+            padding: 3% 0;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
             right: 0;
-            margin-right: 10px;
-            width: 400px;
-            height: 400px;
+            margin-right: 7%;
+            width: 30%;
+            object-fit: contain;
             overflow: hidden;
             float: right;
         }
 
         .picture {
-            width: 80%;
-            height: 80%;
+            width: 100%;
             object-fit: cover;
         }
 
         .content {
             font-family: 'Nanum Gothic', sans-serif;
             margin-left: 5%;
+            padding-right: 7%;
         }
 
-        .content > h1 {
+        .content>header {
             color: rgb(220, 220, 220);
+            font-size: 80px;
+            font-family: 'Nanum Gothic', sans-serif;
+            letter-spacing: 15px;
         }
 
-        .content > h2 {
-            color: rgb(205, 205, 205);
+        .content>h1 {
+            color: rgb(220, 220, 220);
+            margin-top: 7%;
+            font-size: 50px;
+            font-family: 'Nanum Gothic', sans-serif;
         }
 
-        .card-deck {
+        .content>h3 {
+            color: rgb(192, 190, 190);
+            margin-top: 2%;
+            margin-left: 5px;
+            font-size: 25px;
+            font-weight: 300;
+            word-break: keep-all;
+            line-height: 1.3em;
+        }
+
+        .members {
+            border-top: 2px solid rgb(200, 200, 200);
+            margin-top: 4%;
+            margin-left: 5%;
             width: 90%;
-            margin: 10px auto 30px auto;
-            padding: 25px;
-
-            border-top: 1px solid #ededed;
-        }
-
-        .card {
             text-align: center;
         }
 
-        .card-img-top {
-            width: 300px;
+        .members>h1 {
+            color: rgb(238, 237, 237);
+            margin-top: 7%;
+            font-size: 40px;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+
+        .card-deck {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            justify-content: center;
+            width: 100%;
+            margin-top: 10px;
+            padding: 30px;
+        }
+
+        #wrap {
+            border-radius: 20px;
+            margin: 20px 25px;
+            width: 150px;
             height: 200px;
-            padding: 20px 20px 0 20px;
-            border-radius: 15%;
-            object-fit: cover;
+            perspective: 1100px;
+        }
+
+        #wrap:hover .card {
+            transform: rotateY(180deg);
+        }
+
+        .card {
+            border-radius: 20px;
+            width: 100%;
+            height: 100%;
+            transition: .4s ease-in-out;
+            transform-style: preserve-3d;
+        }
+
+        .card-front{
+            border-radius: 20px;
+            position:absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            color: rgb(228, 228, 228);
+            background-color: #0a0a0a;
+            text-align: center;
+            padding-top: 40%;
+        }
+
+        .card-back {
+            border-radius: 20px;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background-color: rgb(161, 161, 161);
+            color: #0f0f0f;
+            text-align: center;
+            transform: rotateY(180deg);
+            padding-top: 25%;
         }
 
         .card-text {
             font-family: 'Nanum Gothic', sans-serif;
-            font-size: 35px;
-            color: #c3c2c0;
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
+        .card-img {
+            width: 60%;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            object-fit: cover;
         }
     </style>
     <script>
@@ -96,12 +181,16 @@
                 console.log(members);
                 const cardDeck = $('.card-deck');
                 for (const { id, name, profile, mbti } of members) {
-                    let card = `<div class="card">
+                    let card = `<div id="wrap">
                                     <a href="/member/${id}">
-                                        <img class="card-img-top" src=${profile}>
-                                        <div class="card-body">
-                                            <h5>${name}</h5>
-                                            <h5>${mbti}</h5>
+                                        <div class="card">
+                                            <div class="card-front">
+                                                <h5 class="card-text">${name}</h5>
+                                            </div>
+                                            <div class="card-back">
+                                                <img class="card-img" src=${profile}>
+                                                <h5 class="card-text">${mbti}</h5>
+                                            </div>
                                         </div>
                                     </a>
                                 </div>
@@ -114,19 +203,52 @@
 </head>
 
 <body>
-    <div class="frame">
-        <img class="picture" src="https://cdn.pixabay.com/photo/2018/03/18/01/46/dragon-eye-3235673_1280.png">
+    <div class="main">
+        <div class="content">
+            <header>
+                사두용미
+            </header>
+            <h3>
+                저희 팀 페이지에 방문해 주셔서 감사합니다!<br>
+                팀 이름은 용두사미를 뒤집어 생각해 시작은 미약하지만 끝은 장대하다는 의미를 담고 있습니다.
+            </h3>
+            <h1>
+                팀의 목표
+            </h1>
+            <h3>
+                저희 팀은 당장은 잘하지 못할지라도 성장하려 노력하고 있습니다.<br>
+                뱀의 머리로 시작했지만 나중에 사람들은 용의 꼬리를 보게 될 것입니다.
+            </h3>
+            <h1>
+                팀 규칙
+            </h1>
+            <h3>
+                1. 프로젝트 진척도를 실시간으로 공유합니다.
+            </h3>
+            <h3>
+                2. 팀원들이 작성한 코드를 읽어보고 코드리뷰를 진행합니다.
+            </h3>
+            <h3>
+                3. 모르는 것이 있으면 적극적으로 팀원과 묻고 대답합니다.
+            </h3>
+            <br>
+        </div>
+        <div class="frame">
+            <img class="picture" style="width: 70%;" src="https://www.pngmart.com/files/22/Dratini-Pokemon-PNG-Isolated-HD-Pictures.png">
+            <img class="picture" src="https://www.pngmart.com/files/22/Dragonair-Pokemon-PNG.png">
+            <img class="picture" style="width: 90%;" src="https://www.pngmart.com/files/22/Dragonite-Pokemon-PNG-Clipart.png">
+        </div>
     </div>
-    <div class="content">
-        <h1 style="margin-top: 5%; font-size: 85px; font-family: 'Nanum Gothic', sans-serif; letter-spacing: 10px;">
-            사두용미
+    <div class="members">
+        <h1>
+            4팀의 멤버를 소개합니다!
         </h1>
-        <h2
-            style="margin-top: 1%; color: rgb(153, 153, 153); margin-left:5px; margin-right: 300px; font-weight: 300; word-break: keep-all">
-            아직 용이 되지 못한 뱀들의 자기소개</h2>
+        <div class="card-deck">
+        </div>
     </div>
-    <div class="card-deck">
+        
     </div>
+    
 </body>
 
 </html>

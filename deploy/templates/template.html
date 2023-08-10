@@ -135,7 +135,7 @@
             background-position: center;
             background-repeat: no-repeat;
             display: inline-block;
-            filter: opacity(0.7) drop-shadow(0 0 0 rgb(203, 203, 203));
+            filter: opacity(0.5) drop-shadow(0 0 0 rgb(255, 255, 255));
         }
 
         .github {
@@ -213,7 +213,7 @@
                 // sns
                 const sns = $('.sns > ul');
                 for (const [snsName, snsUrl] of member.sns) {
-                    let temp = `<li><a class=${snsName} href=${snsUrl} target="blank" ></a></li>`
+                    let temp = `<li><a class=${snsName} href=${snsUrl} target="blank"></a></li>`
                     sns.append(temp);
                 }
 
