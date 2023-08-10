@@ -200,6 +200,7 @@
         const getMembersData = (id) => {
             fetch(`/member/detail/${id}`).then((res) => res.json()).then((data) => {
                 member = data.member;
+                console.log(member);
                 // title을 이름으로 채웁니다.
                 $('head>title').text(member.name);
 
