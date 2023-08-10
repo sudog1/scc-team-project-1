@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <title>메인페이지</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic:wght@400;800&display=swap"
+        rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        .frame {
+            right: 0;
+            margin-right: 10px;
+            width: 400px;
+            height: 400px;
+            overflow: hidden;
+            float: right;
+        }
+
+        .picture {
+            width: 80%;
+            height: 80%;
+            object-fit: cover;
+        }
+
+        .content {
+            font-family: 'Nanum Gothic', sans-serif;
+            margin-left: 5%;
+        }
+
+        .card-deck {
+            width: 90%;
+            margin: 10px auto 30px auto;
+            padding: 25px;
+
+            border-top: 1px solid #ededed;
+        }
+
+        .card {
+            text-align: center;
+        }
+
+        .card-img-top {
+            width: 300px;
+            height: 200px;
+            padding: 20px 20px 0 20px;
+            border-radius: 15%;
+            object-fit: cover;
+        }
+
+        .card-text {
+            font-family: 'Nanum Gothic', sans-serif;
+            font-size: 35px;
+            color: #e8344e;
+        }
+    </style>
+    <script>
+        $(() => {
+            getMemberList();
+        });
+        
+        const getMemberList = () => {
+            fetch('/members').then((res) => res.json()).then((data) => {
+                members = data.members;
+                console.log(members);
+                const cardDeck = $('.card-deck');
+                for (const { id, name, profile, mbti } of members) {
+                    let card = `<div class="card">
+                                    <a href="/member/${id}">
+                                        <img class="card-img-top" src=${profile}>
+                                        <div class="card-body">
+                                            <h5>${name}</h5>
+                                            <h5>${mbti}</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                                `;
+                    cardDeck.append(card);
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div class="frame">
+        <img class="picture" src="https://cdn.pixabay.com/photo/2018/03/18/01/46/dragon-eye-3235673_1280.png">
+    </div>
+    <div class="content">
+        <h1 style="margin-top: 5%; font-size: 85px; font-family: 'Nanum Gothic', sans-serif; letter-spacing: 10px;">
+            사두용미
+        </h1>
+        <h2
+            style="margin-top: 1%; color: rgb(153, 153, 153); margin-left:5px; margin-right: 300px; font-weight: 300; word-break: keep-all">
+            아직 용이 되지 못한 뱀들의 자기소개</h2>
+    </div>
+    <div class="card-deck">
+    </div>
+</body>
+
+</html>

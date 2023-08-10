@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic:wght@400;800&display=swap"
+        rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title></title>
+    <style>
+        body {
+            display: flex;
+            background-color: #12120d;
+            margin: 0;
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            list-style-type: none;
+            width: 17%;
+            background-color: #282823;
+            position: fixed;
+            height: 100%;
+            overflow: auto;
+            margin: 0;
+            padding: 0%;
+            z-index: 1;
+        }
+
+        /* 홈 버튼 */
+        .home {
+            font-size: 35px;
+            display: block;
+            color: #e8344e;
+            margin-top: 10%;
+            text-decoration: none;
+            background-color: transparent;
+            width: fit-content;
+        }
+
+        /* 마우스를 올리면 커짐 */
+        .home:hover {
+            color: rgb(255, 255, 255);
+            transform: scale(1.2);
+        }
+
+        /* 프로필 사진 */
+        .profile {
+            margin-top: 50%;
+            margin-bottom: 15%;
+            width: 70%;
+            aspect-ratio: 1/1;
+            border-radius: 70%;
+            object-fit: cover;
+        }
+
+        /* 내비게이션 메뉴 */
+        .menu {
+            color: #e8344e;
+            text-decoration: none;
+            font-size: 25px;
+            font-family: 'Do Hyeon', sans-serif;
+            margin-bottom: 25px;
+        }
+
+        .menu:hover {
+            color: rgb(255, 255, 255);
+            font-size: 27px;
+        }
+
+        /*본문*/
+        .content {
+            padding-top: 8%;
+            padding-right: 20%;
+            margin-left: 20%;
+            width: 100%;
+            height: 100%;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+
+        .content>header {
+            font-size: 85px;
+            font-family: 'Nanum Gothic', sans-serif;
+            letter-spacing: 10px;
+        }
+
+        .content>h1 {
+            margin-top: 10%;
+            font-size: 35px;
+            color: rgb(176, 176, 176);
+            word-break: keep-all;
+            line-height: 1.3em;
+            font-weight: 550;
+        }
+
+        .content>h2 {
+            margin-top: 1%;
+            color: rgb(153, 153, 153);
+            margin-left: 5px;
+            font-weight: 300;
+            word-break: keep-all;
+            line-height: 1.3em;
+        }
+
+        /*sns 링크 아이콘*/
+        .sns ul {
+            position: relative;
+            padding: 0;
+            margin: 30px 0 0 0;
+            display: flex;
+            justify-content: left;
+        }
+
+        .sns li {
+            list-style: none;
+            margin: 0 15px;
+        }
+
+        .sns li:hover {
+            transform: scale(1.2);
+        }
+
+        .sns ul li a {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: inline-block;
+        }
+
+        .github {
+            content: "";
+            background-image: url("https://cdn-icons-png.flaticon.com/512/25/25231.png");
+            background-repeat: no-repeat;
+            display: inline-block;
+        }
+
+        .blog {
+            content: "";
+            background-image: url("https://cdn-icons-png.flaticon.com/512/4922/4922073.png");
+            background-repeat: no-repeat;
+            display: inline-block;
+        }
+
+        .email {
+            content: "";
+            background-image: url("https://www.freepnglogos.com/uploads/email-logo-png-27.png");
+            background-repeat: no-repeat;
+            display: inline-block;
+        }
+
+        .lan {
+            height: 60px;
+            margin-top: 2%;
+            margin-right: 1%;
+            object-fit: contain;
+            display: inline-block;
+            object-position: center;
+        }
+
+        .fav {
+            height: 150px;
+            aspect-ratio: 1/1;
+            margin: 2% 5px;
+            margin-left: 5px;
+            object-fit: cover;
+            border-radius: 30%;
+            display: inline-block;
+            object-position: center;
+        }
+
+        .wil-txt {
+            width: 70%;
+            margin-top: 1%;
+            text-align: left;
+            color: rgb(153, 153, 153);
+            margin-left: 5px;
+            font-weight: 300;
+            word-break: keep-all;
+        }
+    </style>
+
+    <script>
+        const member_id = '{{ id }}';
+
+        $(() => {
+            getMembersData(member_id);
+        });
+
+        const getMembersData = (id) => {
+            fetch(`/member/detail/${id}`).then((res) => res.json()).then((data) => {
+                member = data.member;
+                // title을 이름으로 채웁니다.
+                $('head>title').text(member.name);
+
+                // 아래 코드는 빈 프로필을 동적으로 채우는 코드입니다.
+                // 프로필 사진
+                $('.profile').attr('src', member.profile);
+
+                // 이름
+                $('header').text(member.name);
+
+                // sns
+                const sns = $('.sns > ul');
+                for (const [snsName, snsUrl] of member.sns) {
+                    let temp = `<li><a class=${snsName} href=${snsUrl} target="blank" ></a></li>`
+                    sns.append(temp);
+                }
+
+                // About me
+                $('#about-desc').html(member.about_me);
+
+                // skill icon
+                const skillIcon = $('#skill-icon');
+                for (const skillUrl of member.skill) {
+                    let temp = `<img class="lan" src=${skillUrl}>`;
+                    skillIcon.append(temp);
+                }
+
+                // 관심분야
+                $('#interests').html(member.interests);
+
+                // 협업 스타일
+                $('#collab-style').html(member.collab_style);
+
+                // what i like
+                const whatILike = $('#what-i-like');
+                for (const [contentType, content] of member.what_i_like) {
+                    let temp;
+                    if (contentType === 'text') {
+                        temp = `<h2 class="wil-txt">${content}</h2>`;
+                    } else if (contentType === 'image') {
+                        temp = `<img class="fav" src=${content}>`;
+                    }
+                    whatILike.append(temp);
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div class="nav">
+        <a class="home" href="/">🏠︎</a></li>
+        <img class="profile"></li>
+        <a href="#about" class="menu">About me</a></li>
+        <a href="#skill" class="menu">Skill</a></li>
+        <a href="#what" class="menu">What I Like</a></li>
+    </div>
+
+    <div class="content">
+        <header id="name"></header>
+        <div class="sns">
+            <ul></ul>
+        </div>
+        <h1 id="about">
+            About Me
+        </h1>
+        <h2 id="about-desc"></h2>
+        <h1 id="skill">
+            사용경험 (언어 및 프레임워크)
+        </h1>
+        <h2 id="skill-icon"></h2>
+        <h1>
+            관심분야
+        </h1>
+        <h2 id="interests"></h2>
+        <h1>
+            협업 스타일
+        </h1>
+        <h2 id="collab-style"></h2>
+        <h1 id="what">
+            What I Like
+        </h1>
+        <div id="what-i-like"></div>
+    </div>
+</body>
+
+</html>
