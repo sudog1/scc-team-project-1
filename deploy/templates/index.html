@@ -113,7 +113,7 @@
             padding: 30px;
         }
 
-        #wrap {
+        .wrap {
             border-radius: 20px;
             margin: 20px 25px;
             width: 150px;
@@ -121,7 +121,7 @@
             perspective: 1100px;
         }
 
-        #wrap:hover .card {
+        .wrap:hover .card {
             transform: rotateY(180deg);
         }
 
@@ -181,7 +181,7 @@
                 console.log(members);
                 const cardDeck = $('.card-deck');
                 for (const { id, name, profile, mbti } of members) {
-                    let card = `<div id="wrap">
+                    let card = `<div class="wrap">
                                     <a href="/member/${id}">
                                         <div class="card">
                                             <div class="card-front">
